@@ -50,7 +50,7 @@
 										<b><?php echo number_format($row['total_cost'],2) ?></b>
 									</td>
 									<td class="text-center">
-                    	<button class="btn btn-sm btn-primary edit_receiving" type="button" onclick="location.href='index.php?page=manage_receiving&id=<?php echo $row['id'] ?>'" data-json='<?php echo json_encode($row) ?>'>Edit</button>
+                    	<!-- <button class="btn btn-sm btn-primary edit_receiving" type="button" onclick="location.href='index.php?page=manage_receiving&id=<?php echo $row['id'] ?>'" data-json='<?php echo json_encode($row) ?>'>Edit</button> -->
 										<button class="btn btn-sm btn-danger delete_receiving" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 									</td>
 								</tr>

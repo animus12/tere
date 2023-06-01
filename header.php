@@ -46,4 +46,5 @@
 	<!-- <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script> -->
   	<script src="https://js.pusher.com/7.2/pusher.min.js"></script>
 	<script src="assets/vendor/canvas/canvas.min.js"></script>
+	<!-- <script src="assets/vendor/pusher.js"></script> -->
 	<script src="assets/vendor/canvas/canvasjq.min.js"></script>

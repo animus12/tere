@@ -107,7 +107,6 @@ function mark() {
 // Mouseleave event handler
 function handleMouseLeave() {
 	clearTimeout(hehe);
-  console.log('Mouseleave detected. Count reset.');
 }
 
 function debouncedHandleMouseOver() {

@@ -280,7 +280,9 @@ span.select2-selection.select2-selection--single {
 	});
 
 	var channel = pusher.subscribe('my-channel');
+	
 	channel.bind('my-event', function(data) {
+		
 		let kim = "<?php echo $_SESSION['login_id']; ?>"
 		if(JSON.parse(data.message) == kim) {
       alert_toast("Someone is trying to access your account!", "danger")
