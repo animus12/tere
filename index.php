@@ -273,7 +273,7 @@ span.select2-selection.select2-selection--single {
 	let hehe = debounce(() => mark())
 
 
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
 	
 	var pusher = new Pusher('1246ce718fc12039a92f', {
 		cluster: 'ap1'
@@ -285,7 +285,7 @@ span.select2-selection.select2-selection--single {
 		
 		let kim = "<?php echo $_SESSION['login_id']; ?>"
 		if(JSON.parse(data.message) == kim) {
-      alert_toast("Someone is trying to access your account!", "danger")
+      alert_toast("Someone is trying to access your account!", "warning")
 		}
 	});
 	</script>

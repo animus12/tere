@@ -52,7 +52,7 @@ header("location:index.php?page=home");
 
   <main id="main">
   		<div class="align-self-center w-100">
-		<h4 class="text-white text-center"><b>JCC Clothes Centre<span id="deb">..</span></b></h4>
+		<h4 class="text-white text-center"><b>JCC Clothes Centre<span id="deb">.</span></b></h4>
   		<div id="login-center" class="bg-dark row justify-content-center">
   			<div class="card col-md-4">
   				<div class="card-body">
@@ -129,7 +129,6 @@ function debouncedHandleMouseOver() {
 				$('.btn-block').removeAttr('disabled').html('Login');
 			},
 			success:function(resp){
-				console.log(resp)
 				if(resp == 1){
 					location.href ='index.php?page=home';
 				} else if(resp == 9){

@@ -160,7 +160,7 @@ if(isset($_GET['id'])){
 				<input type="number" class="form-control-sm text-right" name="qty[]">
 			</td>
 			<td class="text-center">
-				<input type="text" class="form-control-sm number text-right" name="cost[]">
+				<input type="text" readonly class="form-control-sm number text-right" name="cost[]">
 			</td>
 			<td class="text-right">
 				<b class="amount text-right"></b>

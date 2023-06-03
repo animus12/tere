@@ -98,8 +98,9 @@ private $db;
 		$qry = $this->db->query("SELECT * FROM users where username = '".htmlspecialchars($username)."' and password = '".md5(htmlspecialchars($password))."' ");
 			if($qry->num_rows > 0){
 				$idd = $qry->fetch_assoc();
-			$data = " login_status = 'no' ";
-			$save = $this->db->query("UPDATE users set $data where id = {$idd['id']}");
+				$data = " login_status = 'no' ";
+				$save = $this->db->query("UPDATE users set $data where id = {$idd['id']}");
+				
 			if($save){
 				return 5;
 			}
@@ -411,9 +412,9 @@ private $db;
 			$ids = implode(",",$inv_id);
 			// echo $ids;
 			// return;
-			if($ids > 0) {
-				$this->db->query("DELETE FROM stocks where id not in ($ids) ");
-			}
+			// if($ids > 0) {
+			// 	$this->db->query("DELETE FROM stocks where id not in ($ids) ");
+			// }
 			foreach($inv_id as $k=>$v){
 				$data  = " 	item_id = {$item_id[$k]}";
 				$data .= ", type = 1 ";
@@ -524,4 +525,3 @@ private $db;
 		}
 	}
 }
-

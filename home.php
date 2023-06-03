@@ -42,7 +42,7 @@
 	
 	<div class=" p-5 align-center m-3 rounded bg-info" style="max-height: 100%">
 		<div class="row justify-content-center h-100" >
-            <h2 class="text-light "><b>DASHBOARD</b></h2>
+      <h2 class="text-light "><b>DASHBOARD</b></h2>
 			<div class="row p-0 col-12">
         <div class="col-lg-4 p-2">
 					<div class=" d-flex flex-column align-items-center justify-content-center h-100 p-3 bg-light" style="border-radius: 20px;">
