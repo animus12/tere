@@ -241,7 +241,10 @@ span.select2-selection.select2-selection--single {
         $(this).val(val)
     })
 
-    $(window).mousemove(function() {
+    $(window).mousemove(function(e) {
+			hehe()
+		});
+    $(window).keypress(function() {
 			hehe()
 		});
 

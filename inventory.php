@@ -58,11 +58,11 @@
 				</tbody>
 			</table>
 			<hr>
-                <div class="col-md-12 mb-4">
-                    <center>
-                        <button class="btn btn-success btn-sm col-sm-3" type="button" id="print"><i class="fa fa-print"></i> Print</button>
-                    </center>
-                </div>
+					<div class="col-md-12 mb-4">
+							<center>
+									<button class="btn btn-success btn-sm col-sm-3" type="button" id="print"><i class="fa fa-print"></i> Print</button>
+							</center>
+					</div>
 		</div>
 	</div>
 </div>

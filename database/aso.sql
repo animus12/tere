@@ -68,7 +68,7 @@ CREATE TABLE `receiving` (
   `supplier_id` int(11) NOT NULL,
   `description` text DEFAULT NULL,
   `total_cost` float NOT NULL,
-  `inventory_ids` text NOT NULL,
+  `inventory_ids` text DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -83,7 +83,7 @@ CREATE TABLE `sales` (
   `user_id` int(11) NOT NULL,
   `total_amount` float NOT NULL,
   `amount_tendered` int(11) NOT NULL,
-  `inventory_ids` text NOT NULL,
+  `inventory_ids` text DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

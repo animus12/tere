@@ -39,7 +39,9 @@
 									<th class="text-center">#</th>
 									<th class="">Date</th>
 									<th class="">Amount</th> 
-									<th class="">User</th>
+									<?php if($_SESSION['login_type'] != 2): ?>
+										<th class="">User</th>
+									<?php endif; ?>
 									<!-- added by ace -->
 									<?php if($_SESSION['login_type'] != 2): ?>
 										<th class="text-center">Action</th>
@@ -49,32 +51,81 @@
 							<tbody>
 								<?php
 								$i = 1;
+								$total = 0;
 								$order = $conn->query("SELECT * FROM sales order by unix_timestamp(date_created) desc ");
 								while($row=$order->fetch_assoc()):
-                  	$orders = $conn->query("SELECT * FROM users where id = {$row['user_id']} ");
+									if($_SESSION['login_id']  == 1) {
+										$total += $row['total_amount'] ;
+									} else {
+										if( $_SESSION['login_id'] != 1 && $_SESSION['login_id'] == $row['user_id'] ) {
+											$total += $row['total_amount'];
+										}
+									}
+										$orders = $conn->query("SELECT * FROM users where id = {$row['user_id']} ");
 								  	while($rows=$orders->fetch_assoc()):
 								?>
-								<tr>
-									<td class="text-center"><?php echo $i++ ?></td>
-									<td>
-										<p> <b><?php echo date("M d,Y",strtotime($row['date_created'])) ?></b></p>
-									</td>
-									<td>
-										<p class="text-right"> <b><?php echo number_format($row['total_amount'],2) ?></b></p>
-									</td>
-                	<td>
-										<p class="text-right"> <b><?php echo $rows['name'] ?></b></p>
-									</td>
-										<!-- added by ace -->
-									<?php if($_SESSION['login_type'] != 2): ?>
-										<td class="text-center">
-											<button class="btn btn-sm btn-outline-danger delete_order" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+								
+								<?php 
+									if($_SESSION['login_id']  == 1) {
+								?>
+									<tr>
+										<td class="text-center"><?php echo $i++ ?></td>
+										<td>
+											<p> <b><?php echo date("M d,Y",strtotime($row['date_created'])) ?></b></p>
 										</td>
-									<?php endif; ?>
-								</tr>
+										<td>
+											<p class="text-right"> <b><?php echo number_format($row['total_amount'],2) ?></b></p>
+										</td>
+										<td>
+											<p class="text-right"> <b><?php echo $rows['name'] ?></b></p>
+										</td>
+											<!-- added by ace -->
+										<?php if($_SESSION['login_type'] != 2): ?>
+											<td class="text-center">
+												<button class="btn btn-sm btn-outline-danger delete_order" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+											</td>
+										<?php endif; ?>
+									</tr>
+										
+								<?php	}  else { if( $_SESSION['login_id'] != 1 && $_SESSION['login_id'] == $row['user_id'] ) { ?>
+									
+									<tr>
+										<td class="text-center"><?php echo $i++ ?></td>
+										<td>
+											<p> <b><?php echo date("M d,Y",strtotime($row['date_created'])) ?></b></p>
+										</td>
+										<td>
+											<p class="text-right"> <b><?php echo number_format($row['total_amount'],2) ?></b></p>
+										</td>
+										
+										<?php if( $_SESSION['login_id'] == 1) { ?>
+											<td>
+												<p class="text-right"> <b><?php echo $rows['name'] ?></b></p>
+											</td>
+										<?php } ?>
+											<!-- added by ace -->
+										<?php if($_SESSION['login_type'] != 2): ?>
+											<td class="text-center">
+												<button class="btn btn-sm btn-outline-danger delete_order" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+											</td>
+										<?php endif; ?>
+									</tr>
+									
+							<?php	} ?>
+									
+									
+									
+								<?php }?>
+								
                 	<?php endwhile; ?>
 								<?php endwhile; ?>
 							</tbody>
+							<tfoot>
+									<tr>
+											<th colspan="2" class="text-right">Total</th>
+											<th class="text-right"><?php echo number_format($total,2) ?></th>
+									</tr>
+							</tfoot>
 						</table>
 						<hr>
                 <div class="col-md-12 mb-4">

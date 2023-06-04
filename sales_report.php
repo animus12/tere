@@ -1,8 +1,9 @@
  <?php
     include 'db_connect.php';
-		$hehe = date('Y').'-W'.date('W');
+		// $hehe = date('Y').'-W'.date('W');
+		$name;
     $month = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
-    $week = isset($_GET['week']) ? $_GET['week'] :  $hehe;
+    $week = isset($_GET['week']) ? $_GET['week'] :  date('Y').'-W'.date('W');
 ?>
 <?php
 	if($_SESSION['login_type'] != 1) {
@@ -17,17 +18,18 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card_body">
+								<h3 class="text-center mt-5">Sales Report</h3>
             <div class="row container-lg pt-4">
 							<div class="col-6 d-flex justify-content-center">
-                <label for="" class="mt-2">Sales Report for the month of:</label>
+                <label for="" class="mt-2">For the month of:</label>
                 <div class="col-sm-6">
                     <input type="month" name="month" id="month" value="<?php echo $month ?>" class="form-control">
                 </div>
 							</div>
 							<div class="col-6 d-flex justify-content-center">
-								<label for="" class="mt-2">Sales Report for the week of:</label>
+								<label for="" class="mt-2">For the week:</label>
                 <div class="col-sm-6">
-                    <input type="week" name="week" id="week"  value="<?php echo $week;?>" class="form-control">
+                    <input type="week" name="week" id="week"  value="<?php echo $week ?>" class="form-control">
 									</div>
 							</div>
             </div>
@@ -49,18 +51,39 @@
                     </thead>
                     <tbody>
 											<?php
-											
 											$i = 1;
 											$total = 0;
-											if(isset($month)) {
+											
+											if(!isset($_GET['date'])) {
 												$sales = $conn->query("SELECT * FROM sales s where s.amount_tendered > 0 and date_format(s.date_created,'%Y-%m') = '$month' order by unix_timestamp(s.date_created) asc");
-											}
-											if(isset($week)) {
-													preg_match('/(\d{4})-W(\d{2})/', $week, $matches);
-													$year = $matches[1];
-													$weekNumber = $matches[2];
-													$sales = $conn->query("SELECT * FROM sales s where YEARWEEK(s.date_created) = '{$year}{$weekNumber}'");
+											} else {
+												if($_GET['date'] == 'month') {
+													$sales = $conn->query("SELECT * FROM sales s where s.amount_tendered > 0 and date_format(s.date_created,'%Y-%m') = '$month' order by unix_timestamp(s.date_created) asc");
 												}
+													
+												if($_GET['date'] == 'week') {
+													preg_match('/(\d{4})-W(\d{2})/', $week, $matches);
+														if(!empty($matches)) {
+															$year = $matches[1];
+															$weekNumber = $matches[2];
+														} else {
+															$year = '';
+															$weekNumber = '';
+														}
+														$sales = $conn->query("SELECT * FROM sales s where YEARWEEK(s.date_created) = '{$year}{$weekNumber}'");
+												}
+												// if($_GET['date'] == 'week') {
+												// 	preg_match('/(\d{4})-W(\d{2})/', $week, $matches);
+												// 	if($week != '') {
+												// 		$year = $matches[1];
+												// 		$weekNumber = $matches[2];
+												// 		$sales = $conn->query("SELECT * FROM sales s where YEARWEEK(s.date_created) = '{$year}{$weekNumber}'");
+												// 	}
+												// }
+											}
+											
+										
+												
 												if($sales->num_rows > 0):
 												while($row = $sales->fetch_array()):
 													$items = $conn->query("SELECT s.*,i.name,i.item_code as code,i.size, i.category  FROM stocks s inner join items i on i.id=s.item_id where s.id in ({$row['inventory_ids']})");
@@ -147,10 +170,10 @@
 </noscript>
 <script>
 $('#month').change(function(){
-    location.replace('index.php?page=sales_report&month='+$(this).val())
+    location.replace('index.php?page=sales_report&date=month&month='+$(this).val())
 	})
 	$('#week').change(function(){
-		location.replace('index.php?page=sales_report&week='+$(this).val())
+		location.replace('index.php?page=sales_report&date=week&week='+$(this).val())
 })
 $('#report-list').dataTable()
 $('#print').click(function(){

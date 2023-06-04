@@ -57,7 +57,7 @@ if(isset($_GET['id'])){
 						</div>
 						<div class="form-group col-sm-3">
 							<label class="control-label">QTY</label>
-							<input type="number" min='1' class="form-control form-control-sm text-right" id="qty">
+							<input type="number" min='1'  oninput="validity.valid||(value='');" class="form-control form-control-sm text-right" id="qty">
 						</div>
 						<div class="form-group col-sm-3">
 							<label class="control-label">Unit Cost</label>
