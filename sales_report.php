@@ -19,19 +19,19 @@
         <div class="card">
             <div class="card_body">
 								<h3 class="text-center mt-5">Sales Report</h3>
-            <div class="row container-lg pt-4">
-						<form border="0" id="mark" cellspacing="5" cellpadding="5">
-								<tbody><tr>
-										<td>Minimum date:</td>
-										<td><input type="date" id="min" name="min" value="<?php echo $min;?>"></td>
-								</tr>
-								<tr>
-										<td>Maximum date:</td>
-										<td><input type="date" id="max" name="max" value="<?php echo $month; ?>"></td>
-								</tr>
-								<button type="submit">Filter</button>
-								<button type="submit" id="clear">Refresh</button>
-						</tbody></form>
+            <div class=" mx-auto">
+							<h5 class="ml-4">For the following period of:</h5>
+						<form id="mark" class="d-flex align-items-center">
+						
+								<input class="ml-4" type="date" id="min" name="min" value="<?php echo $min;?>">
+							
+								<input type="date" id="max" name="max" value="<?php echo $month; ?>">
+						
+						<div class="ml-4">
+							<button type="submit">Filter</button>
+							<button type="submit" id="clear">Refresh</button>
+						</div>
+					</form>
 						
             </div>
             <hr>
@@ -156,7 +156,9 @@
 // 	$('#max').change(function(){
 // 		location.replace('index.php?page=sales_report&max='+$('#max').val())
 // })
-$('#report-list').dataTable()
+$('#report-list').dataTable({
+	searching: false
+})
 $('#print').click(function(){
             $('#report-list').dataTable().fnDestroy()
 		var _c = $('#report-list').clone();
