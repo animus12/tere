@@ -285,7 +285,7 @@ endif;
             var qty = tr.find('[name="qty[]"]').val();
                 qty = parseInt(qty) + 1;
                 if( qty > datas) {
-										alert_toast("sobra na ui",'danger')
+										alert_toast("Quantity Exceeded",'danger')
 										$(this).val($(this).data("stockss"))
 										end_load()
 										return false;
@@ -325,7 +325,7 @@ endif;
 						}
             let mark = parseInt($(this).val())
 						if(parseInt($(this).val()) > $(this).data("stockss")) {
-							alert_toast("sobra na ui",'danger')
+							alert_toast("Quantity Exceeded",'danger')
 							$(this).val($(this).data("stockss"))
 							$(this).each(function(){
                 var tr = $(this).closest('tr');
@@ -377,7 +377,7 @@ endif;
                 var stock = $(this).siblings('input').data("stockss")
                     qty = parseInt(qty) + 1;
 										if(qty > stock) {
-											alert_toast("Sobra nadin",'danger')
+											alert_toast("Quantity Exceeded",'danger')
 											// $("#pay").prop("disabled", true)
 											end_load()
 											return false;
@@ -497,7 +497,7 @@ endif;
 			
 				
 				if($('#change').val() < "0.00" ){
-					alert_toast("walang uutang tang ina ka",'danger')
+					alert_toast("Enter the right amount",'danger')
 					end_load()
 					return false;
 				}

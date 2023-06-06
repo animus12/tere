@@ -59,7 +59,7 @@ if($_SESSION['login_type'] != 1) {
 				 	<td>
 				 		<center>
 							<div class="btn-group">
-							  <button type="button" class="btn btn-primary btn-sm">Ation</button>
+							  <button type="button" class="btn btn-primary btn-sm">Action</button>
 							  <button type="button" class="btn btn-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							    <span class="sr-only">Toggle Dropdown</span>
 							  </button>

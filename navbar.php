@@ -28,6 +28,9 @@
 		<a href="index.php?page=users" class="nav-item nav-users"><span class='icon-field'><i class="fa fa-users "></i></span> Users</a>
 		<?php endif; ?>
 	</div>
+	<div class="mt-5 pt-3">
+		<h4 class="text-center text-light">Company Policy "No Return, No Exchange"</h4>
+	</div>
 </nav>
 <script>
 	$('.nav_collapse').click(function(){

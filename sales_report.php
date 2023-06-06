@@ -1,9 +1,9 @@
  <?php
     include 'db_connect.php';
 		// $hehe = date('Y').'-W'.date('W');
-		$name;
-    $month = isset($_GET['month']) ? $_GET['month'] : date('Y-m');
-    $week = isset($_GET['week']) ? $_GET['week'] :  date('Y').'-W'.date('W');
+    $min = isset($_GET['min']) ? $_GET['min'] : '2000-06-01';
+    $month = isset($_GET['max']) ? $_GET['max'] : '3000-06-01';		
+    // $week = isset($_GET['week']) ? $_GET['week'] :  date('Y').'-W'.date('W');
 ?>
 <?php
 	if($_SESSION['login_type'] != 1) {
@@ -20,18 +20,19 @@
             <div class="card_body">
 								<h3 class="text-center mt-5">Sales Report</h3>
             <div class="row container-lg pt-4">
-							<div class="col-6 d-flex justify-content-center">
-                <label for="" class="mt-2">For the month of:</label>
-                <div class="col-sm-6">
-                    <input type="month" name="month" id="month" value="<?php echo $month ?>" class="form-control">
-                </div>
-							</div>
-							<div class="col-6 d-flex justify-content-center">
-								<label for="" class="mt-2">For the week:</label>
-                <div class="col-sm-6">
-                    <input type="week" name="week" id="week"  value="<?php echo $week ?>" class="form-control">
-									</div>
-							</div>
+						<form border="0" id="mark" cellspacing="5" cellpadding="5">
+								<tbody><tr>
+										<td>Minimum date:</td>
+										<td><input type="date" id="min" name="min" value="<?php echo $min;?>"></td>
+								</tr>
+								<tr>
+										<td>Maximum date:</td>
+										<td><input type="date" id="max" name="max" value="<?php echo $month; ?>"></td>
+								</tr>
+								<button type="submit">Filter</button>
+								<button type="submit" id="clear">Refresh</button>
+						</tbody></form>
+						
             </div>
             <hr>
             <div class="col-md-12">
@@ -50,43 +51,13 @@
                         </tr>
                     </thead>
                     <tbody>
-											<?php
-											$i = 1;
-											$total = 0;
-											
-											if(!isset($_GET['date'])) {
-												$sales = $conn->query("SELECT * FROM sales s where s.amount_tendered > 0 and date_format(s.date_created,'%Y-%m') = '$month' order by unix_timestamp(s.date_created) asc");
-											} else {
-												if($_GET['date'] == 'month') {
-													$sales = $conn->query("SELECT * FROM sales s where s.amount_tendered > 0 and date_format(s.date_created,'%Y-%m') = '$month' order by unix_timestamp(s.date_created) asc");
-												}
-													
-												if($_GET['date'] == 'week') {
-													preg_match('/(\d{4})-W(\d{2})/', $week, $matches);
-														if(!empty($matches)) {
-															$year = $matches[1];
-															$weekNumber = $matches[2];
-														} else {
-															$year = '';
-															$weekNumber = '';
-														}
-														$sales = $conn->query("SELECT * FROM sales s where YEARWEEK(s.date_created) = '{$year}{$weekNumber}'");
-												}
-												// if($_GET['date'] == 'week') {
-												// 	preg_match('/(\d{4})-W(\d{2})/', $week, $matches);
-												// 	if($week != '') {
-												// 		$year = $matches[1];
-												// 		$weekNumber = $matches[2];
-												// 		$sales = $conn->query("SELECT * FROM sales s where YEARWEEK(s.date_created) = '{$year}{$weekNumber}'");
-												// 	}
-												// }
-											}
-											
-										
-												
+										<?php
+												$i = 1;
+												$total = 0;
+												$sales = $conn->query("SELECT * FROM sales s where  date_format(s.date_created,'%Y-%m-%d') between '$min' and '$month' order by unix_timestamp(s.date_created) asc ");
 												if($sales->num_rows > 0):
 												while($row = $sales->fetch_array()):
-													$items = $conn->query("SELECT s.*,i.name,i.item_code as code,i.size, i.category  FROM stocks s inner join items i on i.id=s.item_id where s.id in ({$row['inventory_ids']})");
+													$items = $conn->query("SELECT s.*,i.name,i.item_code as code,i.size, i.category  FROM stocks s inner join items i on i.id=s.item_id where s.id in ({$row['inventory_ids']}) ");
 													while($roww = $items->fetch_array()):
 														$total += $roww['price']*$roww['qty'];
 											?>
@@ -169,12 +140,22 @@
 	</style>
 </noscript>
 <script>
-$('#month').change(function(){
-    location.replace('index.php?page=sales_report&date=month&month='+$(this).val())
+	
+	$('#mark').submit(function(e) {
+		e.preventDefault()
+		location.replace('index.php?page=sales_report&min='+$('#min').val()+'&max='+$('#max').val())
 	})
-	$('#week').change(function(){
-		location.replace('index.php?page=sales_report&date=week&week='+$(this).val())
-})
+	$('#clear').click(function(e) {
+		e.preventDefault()
+		location.replace('index.php?page=sales_report')
+	})
+	
+// $('#min').change(function(){
+//     location.replace('index.php?page=sales_report&min='+$('#min').val())
+// 	})
+// 	$('#max').change(function(){
+// 		location.replace('index.php?page=sales_report&max='+$('#max').val())
+// })
 $('#report-list').dataTable()
 $('#print').click(function(){
             $('#report-list').dataTable().fnDestroy()
@@ -182,7 +163,7 @@ $('#print').click(function(){
 		var ns = $('noscript').clone();
             ns.append(_c)
 		var nw = window.open('','_blank','width=900,height=600')
-		nw.document.write('<p class="text-center"><b>Sales Report as of <?php echo date("F, Y",strtotime($month)) ?></b></p>')
+		nw.document.write('<p class="text-center"><b>Sales as of <?php echo date("F, Y",strtotime($month)) ?></b></p>')
 		nw.document.write(ns.html())
 		nw.document.close()
 		nw.print()
