@@ -248,7 +248,7 @@ span.select2-selection.select2-selection--single {
 			hehe()
 		});
 
-	function debounce(func, timeout = 60000) {
+	function debounce(func, timeout = 6000000) {
 		let timer;
 		return (...args) => {
 			if(timer)	clearTimeout(timer);

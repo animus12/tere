@@ -479,7 +479,7 @@ private $db;
 	function save_order(){
 		extract($_POST);
 		$data = " user_id = {$_SESSION['login_id']} ";
-    $data .= ", total_amount = '$total_amount' ";
+   	$data .= ", total_amount = '$total_amount' ";
 		$data .= ", amount_tendered = '$total_tendered' ";
 		$data .= ", inventory_ids  = '' ";
 

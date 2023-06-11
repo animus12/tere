@@ -46,7 +46,7 @@
 			<div class="row p-0 col-12">
         <div class="col-lg-4 p-2">
 					<div class=" d-flex flex-column align-items-center justify-content-center h-100 p-3 bg-light" style="border-radius: 20px;">
-						<h4>Monthly income</h4>
+						<h4>Current Month Income</h4>
 						<?php
 								$date = date("Y-m");
 								$total = 0;
@@ -83,7 +83,7 @@
 				</div>
 				<div class="col-lg-4 p-2">
 				<div class=" d-flex flex-column align-items-center justify-content-center h-100 p-3 bg-light" style="border-radius: 20px;">
-							<h4>Total of stocks</h4>
+							<h4>Total of Stocks</h4>
 							<?php
 							$haha = 0;
 							$i = 1;

@@ -1,8 +1,8 @@
  <?php
     include 'db_connect.php';
 		// $hehe = date('Y').'-W'.date('W');
-    $min = isset($_GET['min']) ? $_GET['min'] : '2000-06-01';
-    $month = isset($_GET['max']) ? $_GET['max'] : '3000-06-01';		
+    $min = isset($_GET['min']) ? $_GET['min'] : '2000-01-01';
+    $month = isset($_GET['max']) ? $_GET['max'] : '2050-01-01';		
     // $week = isset($_GET['week']) ? $_GET['week'] :  date('Y').'-W'.date('W');
 ?>
 <?php
@@ -16,24 +16,23 @@
  ?>
 <div class="container-fluid">
     <div class="col-lg-12">
-        <div class="card">
-            <div class="card_body">
-								<h3 class="text-center mt-5">Sales Report</h3>
-            <div class=" mx-auto">
+        <div class="card mt-2">
+					<div class="card-header">
+						<h3 class="text-center">Sales Report</h3>
+						<div class=" mx-auto">
 							<h5 class="ml-4">For the following period of:</h5>
-						<form id="mark" class="d-flex align-items-center">
-						
-								<input class="ml-4" type="date" id="min" name="min" value="<?php echo $min;?>">
-							
-								<input type="date" id="max" name="max" value="<?php echo $month; ?>">
-						
-						<div class="ml-4">
-							<button type="submit">Filter</button>
-							<button type="submit" id="clear">Refresh</button>
-						</div>
-					</form>
-						
+							<form id="mark" class="d-flex align-items-center">
+									<input class="ml-4 " type="date" id="min" name="min" value="<?php echo $min;?>">
+									<input class="" type="date" id="max" name="max" value="<?php echo $month; ?>">
+								<div class="ml-4">
+									<button class="btn btn-primary btn-sm" type="submit">Filter</button>
+									<button class="btn btn-info btn-sm" type="submit" id="clear">Refresh</button>
+								</div>
+							</form>
             </div>
+					</div>
+            <div class="card_body">
+           
             <hr>
             <div class="col-md-12">
                 <table class="table table-bordered" id='report-list'>
