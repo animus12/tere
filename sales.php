@@ -74,7 +74,7 @@
 											<p> <b><?php echo date("M d,Y",strtotime($row['date_created'])) ?></b></p>
 										</td>
 										<td>
-											<p class="text-right"> <b><?php echo number_format($row['total_amount'],2) ?></b></p>
+											<p class="text-right"> <b><?php echo "₱" . number_format($row['total_amount'],2) ?></b></p>
 										</td>
 										<td>
 											<p class="text-right"> <b><?php echo $rows['name'] ?></b></p>
@@ -123,7 +123,7 @@
 							<tfoot>
 									<tr>
 											<th colspan="2" class="text-right">Total</th>
-											<th class="text-right"><?php echo number_format($total,2) ?></th>
+											<th class="text-right"><?php echo "₱" . number_format($total,2) ?></th>
 									</tr>
 							</tfoot>
 						</table>

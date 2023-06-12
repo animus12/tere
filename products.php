@@ -102,7 +102,7 @@
 									<td class="">
 										<p>Name: <b><?php echo $row['name'] ?></b></p>
 										<p>Category: <b><?php echo $row['category']?></b></p>
-										<p><small>Price: <b><?php echo number_format($row['price'],2) ?></b></small></p>
+										<p><small>Price: <b><?php echo "₱" . number_format($row['price'],2) ?></b></small></p>
 										<p><small>Size: <b><?php echo $row['size'] ?></b></small></p>
 										<p><small>Description: <b><?php echo $row['description'] ?></b></small></p>
 									</td>

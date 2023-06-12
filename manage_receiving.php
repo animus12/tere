@@ -123,7 +123,7 @@ if(isset($_GET['id'])){
 									<th class="text-center" colspan="5"><b>Total</b></th>
 									<th class="text-right">
 										<input type="hidden" name="total_amount" value="0">
-										<b class="tamount" id="total_amount">0.00</b>
+										<b class="tamount" id="total_amount">₱0.00</b>
 									</th>
 								</tr>
 							</tfoot>
@@ -171,7 +171,7 @@ if(isset($_GET['id'])){
 <script>
 		$(".product-class").change(function() {
 			var element = $(this).find('option:selected'); 
-			$("#cost").val(element.attr("data-prod"))
+			$("#cost").val("₱" + element.attr("data-prod"))
 		})
 	
 	
@@ -182,6 +182,7 @@ if(isset($_GET['id'])){
 		var pid = $('#item_id').val();
 		var qty = $('#qty').val();
 		var cost = $('#cost').val();
+		// var cost = cost.replace(/^./, "");;
 
 		if(pid=='' ||qty==''||cost==''){
 			alert_toast("Please complete the fields first.",'danger')
@@ -194,6 +195,7 @@ if(isset($_GET['id'])){
 		tr.find('[name="item_id[]"]').val(pid)
 		tr.find('.pname').text(pname)
 		tr.find('[name="qty[]"]').attr('value',qty)
+		// cost = cost.replace(/^./, "")
 		tr.find('[name="cost[]"]').attr('value',cost)
 		$('#prod-list tbody').append(tr.find('table tbody').html())
 		$('#item_id').val('').trigger('change')
@@ -224,17 +226,20 @@ if(isset($_GET['id'])){
 			var qty = $(this).val()
 			var cost = tr.find('[name="cost[]"]').val()
 			cost = cost.replace(/,/g,'')
+			cost = cost.replace(/^./, "")
 			var amount = parseFloat(qty) * parseFloat(cost)
 				amount = amount > 0 ? amount : 0;
-			tr.find('.amount').text(parseFloat(amount).toLocaleString('en-US',{style:"decimal",minimumFractionDigits:2,maximumFractionDigits:2}))
+			tr.find('.amount').text("₱" + parseFloat(amount).toLocaleString('en-US',{style:"decimal",minimumFractionDigits:2,maximumFractionDigits:2}))
 		})
 		$('.amount').each(function(){
 			var amount = $(this).text()
 				amount = amount.replace(/,/g,'')
+				amount = amount.replace(/^./, "")
 				total += parseFloat(amount)
 		})
 		$('[name="total_amount"]').val(total)
-		$('#total_amount').text(parseFloat(total).toLocaleString('en-US',{style:"decimal",minimumFractionDigits:2,maximumFractionDigits:2}))
+		console.log(total)
+		$('#total_amount').text("₱" + parseFloat(total).toLocaleString('en-US',{style:"decimal",minimumFractionDigits:2,maximumFractionDigits:2}))
 	}
 
 	$('.number').on('input',function(){
@@ -253,7 +258,7 @@ if(isset($_GET['id'])){
  			data:$(this).serialize(),
  			success:function(resp){
 				console.log(resp)
-				// console.log(JSON.parse(resp))1
+				// console.log(JSON.parse(resp))
  				if(resp == 1){
  					alert_toast("Data successfully saved.","success")
  					setTimeout(function(){

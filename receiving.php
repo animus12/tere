@@ -47,7 +47,7 @@
 										<p><b><?php echo ucwords($row['sname']) ?></b></p>
 									</td>
 									<td class="text-right">
-										<b><?php echo number_format($row['total_cost'],2) ?></b>
+										<b><?php echo "₱" . number_format($row['total_cost'],2) ?></b>
 									</td>
 									<td class="text-center">
                     	<!-- <button class="btn btn-sm btn-primary edit_receiving" type="button" onclick="location.href='index.php?page=manage_receiving&id=<?php echo $row['id'] ?>'" data-json='<?php echo json_encode($row) ?>'>Edit</button> -->

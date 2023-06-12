@@ -109,6 +109,7 @@ endif;
                            <tr>
                                <th>QTY</th>
                                <th>Order</th>
+                               <th>Price</th>
                                <th>Amount</th>
                                <th></th>
                            </tr>
@@ -218,7 +219,7 @@ endif;
 												<td><b><?php echo ucwords($row['name']) ?></b></td>
 												<td><b><?php echo $row['size'] ?></b></td>
 												<td class=""><b><?php echo $available; ?></b></td>
-												<td class="text-right"><b><?php echo number_format($row['price'],2) ?></b></td>
+												<td class="text-right"><b><?php echo "₱" . number_format($row['price'],2) ?></b></td>
 											</tr>
 
 									<?php	}
@@ -260,7 +261,7 @@ endif;
             </div>
             <div class="form-group">
                 <label for="">Change</label>
-                <input type="text" class="form-control text-right" id="change" value="0.00" readonly="">
+                <input type="text" class="form-control text-right" id="change" value="₱0.00" readonly="">
             </div>
         </div>
       </div>
@@ -297,8 +298,9 @@ endif;
         var tr = $('<tr class="o-item"></tr>')
         tr.attr('data-id',data.id)
         tr.append('<td><div class="d-flex"><span class="btn btn-sm btn-secondary btn-minus"><b><i class="fa fa-minus"></i></b></span><input type="number" data-stockss="'+ datas +'"  name="qty[]" id="" value="1"><span class="btn btn-sm btn-secondary btn-plus data-stocksss="'+datas+'""><b><i class="fa fa-plus"></i></b></span></div></td>')
-        tr.append('<td><input type="hidden" name="inv_id[]" id="" value=""><input type="hidden" name="item_id[]" id="" value="'+data.id+'">'+data.name+' <small class="psmall">('+(parseFloat(data.price).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))+')</small></td>')
-        tr.append('<td class="text-right"><input type="hidden" name="price[]" id="" value="'+data.price+'"><input type="hidden" name="amount[]" id="" value="'+data.price+'"><span class="amount">'+(parseFloat(data.price).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))+'</span></td>')
+        tr.append('<td><input type="hidden" name="inv_id[]" id="" value=""><input type="hidden" name="item_id[]" id="" value="'+data.id+'">'+data.name+' </td>')
+        tr.append('<td class=""><p><b>(₱'+(parseFloat(data.price).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))+')</b></p></td>')
+        tr.append('<td class="text-right"><input type="hidden" name="price[]" id="" value="'+data.price+'"><input type="hidden" name="amount[]" id="" value="'+data.price+'"><span class="amount">₱'+(parseFloat(data.price).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))+'</span></td>')
         tr.append('<td><span class="btn btn-sm btn-danger btn-rem"><b><i class="fa fa-times text-white"></i></b></span></td>')
         $('#o-list tbody').append(tr)
         qty_func()
@@ -405,7 +407,7 @@ endif;
                 var price = tr.find('[name="price[]"]').val()
                 var amount = (parseFloat(qty)  || 1)* parseFloat(price);
                     tr.find('[name="amount[]"]').val(amount)
-                    tr.find('.amount').text(parseFloat(amount).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
+                    tr.find('.amount').text("₱" + parseFloat(amount).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
 
             })
          })
@@ -414,7 +416,8 @@ endif;
             total = parseFloat(total) + parseFloat($(this).val())
          })
         $('[name="total_amount"]').val(total)
-        $('#total_amount').text(parseFloat(total).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
+				let sign = "₱"
+        $('#total_amount').text(sign.concat(parseFloat(total).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2})))
     }
    function cat_func(){
     $('.cat-item').click(function(){
@@ -446,7 +449,8 @@ endif;
         end_load()
         return false;
     }
-    $('#apayable').val(parseFloat(amount).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
+		
+    $('#apayable').val("₱" + parseFloat(amount).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
     $('#pay_modal').modal('show')
     setTimeout(function(){
         $('#tendered').val('').trigger('change')
@@ -476,7 +480,7 @@ endif;
         // return false;
 				//}else {
 			//	}
-				$('#change').val(parseFloat(change).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
+				$('#change').val("₱" + parseFloat(change).toLocaleString("en-US",{style:'decimal',minimumFractionDigits:2,maximumFractionDigits:2}))
    })
 
     $('#tendered').on('input',function(){

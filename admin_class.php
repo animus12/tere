@@ -419,7 +419,7 @@ private $db;
 				$data  = " 	item_id = {$item_id[$k]}";
 				$data .= ", type = 1 ";
 				$data .= ", qty = '{$qty[$k]}' ";
-				$data .= ", price = '{$cost[$k]}' ";
+				$data .= ", price = '". ltrim($cost[$k], "₱") ."' ";
 				// echo $data;
 				// return;
 				if(empty($v)){

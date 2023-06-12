@@ -79,13 +79,13 @@
                             <p class="text-right"> <b><?php echo $roww['category'] ?></b></p>
                         </td>
                         <td>
-                            <p class="text-right"> <b><?php echo number_format($roww['price'],2) ?></b></p>
+                            <p class="text-right"> <b><?php echo "₱" . number_format($roww['price'],2) ?></b></p>
                         </td>
                         <td>
                             <p class="text-right"> <b><?php echo $roww['qty'] ?></b></p>
                         </td>
                         <td>
-                            <p class="text-right"> <b><?php echo number_format($roww['price']*$roww['qty'],2) ?></b></p>
+                            <p class="text-right"> <b><?php echo "₱" . number_format($roww['price']*$roww['qty'],2) ?></b></p>
                         </td>
                     </tr>
 											<?php
